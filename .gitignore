@@ -1,0 +1,12 @@
+# Ignore all .pyc files
+*.pyc
+
+# Ignore the .vscode directory
+#.vscode/
+
+# Ignore the build directory
+build/
+
+.pytest_cache/
+
+.venv/
