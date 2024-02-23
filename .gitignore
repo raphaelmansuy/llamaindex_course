@@ -10,3 +10,6 @@ build/
 .pytest_cache/
 
 .venv/
+data_index/
+.env
+.drawio-chrome/
