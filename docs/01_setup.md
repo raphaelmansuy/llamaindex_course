@@ -17,3 +17,7 @@ poetry add 'transformers[torch]'
 ```bash
 poetry add python-dotenv
 ```
+
+## Retrieved Augmentad Generation (RAG) model
+
+![Retrieved Augmentad Generation (RAG) model](./assets/01_concept.excalidraw.png)
