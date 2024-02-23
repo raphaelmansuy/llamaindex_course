@@ -1,4 +1,4 @@
-""" Load the documents from the data directory and create an index """
+""" Create an index with smaller chunks of tokens """
 
 import os.path
 
@@ -42,12 +42,12 @@ if not os.path.exists(PERSIST_DIR):
     # log the number of documents
     logging.info("Loaded %s documents", len(documents))
 
-    split_size = 512
+    SPLIT_SIZE = 512
 
-    logging.info("Creating index with smaller chunks of %s tokens", split_size)
+    logging.info("Creating index with smaller chunks of %s tokens", SPLIT_SIZE)
 
     index = VectorStoreIndex.from_documents(
-      documents, transformations=[SentenceSplitter(chunk_size=split_size)])
+        documents, transformations=[SentenceSplitter(chunk_size=SPLIT_SIZE)])
 
     logging.info("Index created")
 

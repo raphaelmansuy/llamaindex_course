@@ -18,6 +18,12 @@ poetry add 'transformers[torch]'
 poetry add python-dotenv
 ```
 
+## Add chroma db
+  
+```bash
+poetry add chromadb
+```
+
 ## Retrieved Augmentad Generation (RAG) model
 
 ![Retrieved Augmentad Generation (RAG) model](./assets/01_concept.excalidraw.png)

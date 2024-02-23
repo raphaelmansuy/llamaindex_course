@@ -1,4 +1,4 @@
-""" This script queries the index that was created and persisted in the previous step """
+""" This script demonstrates how to query the index with more context """
 
 import os.path
 
@@ -34,7 +34,7 @@ storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
 index = load_index_from_storage(storage_context)
 
 # Either way we can now query the index
-query_engine = index.as_query_engine()
+query_engine = index.as_query_engine(similarity_top_k=5)
 response = query_engine.query("Explain the result of Air Liquide in 2023 ? Make a summary")
 print(response)
 
