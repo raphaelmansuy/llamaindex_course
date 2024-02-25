@@ -1,5 +1,4 @@
 "" "This script demonstrates how to create a chain to evaluate the urgency of a patient triage and evaluation at an emergency service in a hospital." ""
-import os
 import json
 # Import BaseModel from Pydantic
 
@@ -10,12 +9,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.llms import Ollama
 
 from langchain.output_parsers import PydanticOutputParser
-from langchain_core.pydantic_v1 import BaseModel, Field, validator
-
-
-
-
-
+from langchain_core.pydantic_v1 import BaseModel, Field
 
 
 class UrgencyEvaluation(BaseModel):
