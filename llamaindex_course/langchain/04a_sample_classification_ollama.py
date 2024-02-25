@@ -7,21 +7,15 @@ from typing import List
 
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_openai import ChatOpenAI
+from langchain_community.llms import Ollama
 
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field, validator
 
 
-# import doten
-# Import load_dotenv from the dotenv module
-from dotenv import load_dotenv
 
-load_dotenv()
 
-PERPLEXITY_API = os.getenv("PERPLEXITY_API")
-PERPLEXITY_MODEL_NAME = os.getenv("PERPLEXITY_MODEL_NAME")
-PERPLEXITY_KEY = os.getenv("PERPLEXITY_KEY")
+
 
 
 class UrgencyEvaluation(BaseModel):
@@ -60,8 +54,9 @@ The results must formated as follow: {instructions}.
 clinical_triage_prompt = ChatPromptTemplate.from_template(
     CLINICAL_TRIAGE_PROMPT)
 # Create a model
-model = ChatOpenAI(model=PERPLEXITY_MODEL_NAME,
-                   base_url=PERPLEXITY_API, openai_api_key=PERPLEXITY_KEY)
+MODEL_NAME = "mistral:latest"
+
+model = Ollama(model=MODEL_NAME)
 # Create an output parser
 urgency_evaluation_parser = PydanticOutputParser(
     pydantic_object=UrgencyEvaluation)
