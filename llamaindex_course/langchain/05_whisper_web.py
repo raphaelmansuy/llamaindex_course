@@ -6,19 +6,30 @@ transcriber = pipeline("automatic-speech-recognition",
                        model="openai/whisper-base.en")
 
 
-def transcribe(audio):
-    """ Transcribe the audio using the OpenAI Whisper model. """
-    sr, y = audio
+def transcribe(stream, new_chunk):
+    """ Transcribe the audio stream and return the text. """
+    sr, y = new_chunk
     y = y.astype(np.float32)
     y /= np.max(np.abs(y))
-    return transcriber({"sampling_rate": sr, "raw": y})["text"]
+
+    if stream is not None:
+        stream = np.concatenate([stream, y])
+    else:
+        stream = y
+    return stream, transcriber({"sampling_rate": sr, "raw": stream})["text"]
+
+def analyse_text(text):
+    """ Append 'Toto' to the transcribed text. """
+    return text + " Toto"    
 
 
 demo = gr.Interface(
     transcribe,
-    gr.Audio(sources=["microphone"]),
-    "text",
+    ["state", gr.Audio(sources=["microphone"], streaming=True)],
+    ["state", "text"],
+    live=True,
 )
+
 
 
 demo.launch()
