@@ -1,4 +1,3 @@
-"" "This script demonstrates how to create a chain to evaluate the urgency of a patient triage and evaluation at an emergency service in a hospital." ""
 import os
 import json
 # Import BaseModel from Pydantic
@@ -6,11 +5,15 @@ import json
 from typing import List
 
 
+from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field, validator
+
+# The Web interface components
+import gradio as gr
 
 
 # import dotenv
@@ -63,22 +66,50 @@ clinical_triage_prompt = ChatPromptTemplate.from_template(
 model = ChatOpenAI(model=PERPLEXITY_MODEL_NAME,
                    base_url=PERPLEXITY_API, openai_api_key=PERPLEXITY_KEY)
 # Create an output parser
+output_parser = StrOutputParser()
+
 urgency_evaluation_parser = PydanticOutputParser(
     pydantic_object=UrgencyEvaluation)
 
 # Create a chain
 evaluation_chain = clinical_triage_prompt | model | urgency_evaluation_parser
 
-PATIENT_NAME = "John Doe"
-VITAL_SIGNS = "heart_rate: 80, blood_pressure: 180/100"
-SYMPTOMS = "headache, fever, cough, difficulty breathing"
+
+def evaluate_patient(patient_name: str, vital_signs: str, symptoms: str) -> str:
+    """
+    Evaluate the urgency of a patient based on symptoms and vital signs.
+
+    Args:
+        patient_name (str): The unique identifier of the patient.
+        vital_signs (str): The vital signs of the patient.
+        symptoms (str): The symptoms reported by the patient.
 
 
-evaluation = evaluation_chain.invoke({"patient_name": PATIENT_NAME,
-                                      "vital_signs": VITAL_SIGNS,
-                                      "symptoms": SYMPTOMS,
-                                      "instructions": urgency_evaluation_parser.get_format_instructions()})
+    Returns:
+        dict: A dictionary containing the urgency evaluation results.
+    """
+    # Create a chain
+    evaluation_chain = clinical_triage_prompt | model | urgency_evaluation_parser
+    # format instructions
+    format_instructions = urgency_evaluation_parser.get_format_instructions()
+    # Invoke the chain
+    evaluation = evaluation_chain.invoke({"patient_name": patient_name,
+                                          "vital_signs": vital_signs,
+                                          "symptoms": symptoms,
+                                          "instructions": format_instructions})
 
-# print the JSON beautifully
+    result = json.dumps(evaluation.dict(), indent=4)
 
-print(json.dumps(evaluation.dict(), indent=4))
+    # Return the evaluation results
+    return result
+
+
+# Create a Gradio interface
+iface = gr.Interface(fn=evaluate_patient,
+                     inputs=["text", "text", "text"],
+                     outputs="text",
+                     title="Patient Evaluation",
+                     description="Evaluate patient urgency based on symptoms and vital signs.")
+
+
+iface.launch()
