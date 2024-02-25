@@ -11,6 +11,10 @@ llama-index = "^0.10.9"
 python-dotenv = "^1.0.1"
 transformers = {extras = ["torch"], version = "^4.38.1"}
 chromadb = "^0.4.23"
+llama-index-llms-ollama = "^0.1.2"
+langchain = "^0.1.9"
+langchain-community = "^0.0.24"
+llama-index-embeddings-langchain = "^0.1.2"
 
 
 [tool.poetry.group.dev.dependencies]

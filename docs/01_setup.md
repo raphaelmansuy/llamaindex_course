@@ -18,11 +18,23 @@ poetry add 'transformers[torch]'
 poetry add python-dotenv
 ```
 
-## Add chroma db
+## Add chroma db (A vector database for fast similarity search)
   
 ```bash
 poetry add chromadb
 ```
+
+## Add lanchain 
+
+```bash
+poetry add lanchain
+```
+
+## Add langchain-community
+  
+  ```bash
+  poetry add langchain-community
+  ```
 
 ## Retrieved Augmentad Generation (RAG) model
 
