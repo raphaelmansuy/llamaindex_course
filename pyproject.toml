@@ -19,6 +19,9 @@ scikit-learn = "^1.4.1.post1"
 langchain-openai = "^0.0.7"
 pydantic = "^2.6.2"
 gradio = "^4.19.2"
+sounddevice = "^0.4.6"
+soundfile = "^0.12.1"
+torchaudio = "^2.2.1"
 
 
 [tool.poetry.group.dev.dependencies]
