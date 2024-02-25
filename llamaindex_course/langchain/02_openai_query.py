@@ -21,5 +21,8 @@ output_parser = StrOutputParser()
 # Create a chain
 chain = prompt | model | output_parser
 
+#res = chain.invoke({"animal": "bears", "topic": "ice cream"})
+#print(res)
+
 for chunk in chain.stream({"animal": "bears", "topic": "ice cream"}):
     print(chunk, end="", flush=True)
