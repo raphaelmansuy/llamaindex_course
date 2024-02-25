@@ -1,12 +1,9 @@
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_community.llms import Ollama
 
 
-MODEL_NAME = "mistral:latest"
 
-model = Ollama(model=MODEL_NAME)
 
 
 prompt = ChatPromptTemplate.from_template(
