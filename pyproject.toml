@@ -22,6 +22,7 @@ gradio = "^4.19.2"
 sounddevice = "^0.4.6"
 soundfile = "^0.12.1"
 torchaudio = "^2.2.1"
+langgraph = "^0.0.26"
 
 
 [tool.poetry.group.dev.dependencies]

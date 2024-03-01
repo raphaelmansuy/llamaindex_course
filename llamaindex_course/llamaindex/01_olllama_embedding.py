@@ -5,7 +5,7 @@ from langchain_community.embeddings import OllamaEmbeddings
 
 TEXT_TO_ENCODE = "Dog"
 
-TEXT_TO_COMPARE = "Wolf"
+TEXT_TO_COMPARE = "Le chien"
 
 embeddings = OllamaEmbeddings(model="nomic-embed-text")
 

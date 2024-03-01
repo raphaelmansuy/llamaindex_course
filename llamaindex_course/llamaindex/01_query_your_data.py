@@ -1,5 +1,5 @@
 """
-A simple example of how to query your data using LlamaIndex.
+A simple example of how to query your data using LlamaIndex and OpenAI API
 """
 # Import load_dotenv from the dotenv module
 from dotenv import load_dotenv
