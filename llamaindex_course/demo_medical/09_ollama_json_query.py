@@ -39,7 +39,6 @@ LLM_MODEL = "mistral:latest"
 service_context = ServiceContext.from_defaults(
     llm=Ollama(model=LLM_MODEL, tokens=8096, request_timeout=120, temperature=0.1),
     embed_model=OllamaEmbeddings(model=EMBEDDING_MODEL, show_progress=True),
-    num_output=6
 )
 
 # check if storage already exists
@@ -47,7 +46,7 @@ PERSIST_DIR = os.environ.get("PERSIST_DIR")
 
 # You need to set this variable to True if you want to remove the existing storage
 # and recreate the index from the documents
-REMOVE_EXISTING_STORAGE = True
+REMOVE_EXISTING_STORAGE = False
 
 if REMOVE_EXISTING_STORAGE and os.path.exists(PERSIST_DIR):
     # remove the existing storage
@@ -68,6 +67,7 @@ else:
     # We can load the existing index from the storage
     storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
     index = load_index_from_storage(storage_context, service_context=service_context)
+
 
 
 QUERY = """
