@@ -21,13 +21,14 @@ model = ChatOpenAI(
     model_name=MODEL_NAME,
     api_key=MODEL_KEY,
     base_url=MODEL_API,
-    temperature=0,
+    temperature=0.1,
     max_tokens=4096,
 )
 
 
 def _sanitize_output(text: str):
     _, after = text.split("```python")
+    print(text)
     return after.split("```")[0]
 
 
@@ -46,7 +47,7 @@ output_parser = StrOutputParser()
 chain = prompt | model | StrOutputParser() | _sanitize_output | PythonREPL().run
 
 res = chain.invoke(
-    {"input": "Calculate the surface of a cone with a radius of 3 and a height of 5.8"}
+    {"input": "Calculate the surface of a cone with a radius of 3 and a height of 5.8. Reason step by step."}
 )
 
 print(res)
