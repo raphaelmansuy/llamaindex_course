@@ -27,6 +27,7 @@ langsmith = "^0.1.13"
 arxiv = "^2.1.0"
 duckduckgo-search = "^4.5.0"
 langchainhub = "^0.1.14"
+langchain-experimental = "^0.0.53"
 
 
 [tool.poetry.group.dev.dependencies]

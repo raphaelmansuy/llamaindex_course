@@ -38,10 +38,22 @@ prompt = hub.pull("hwchase17/self-ask-with-search")
 agent = create_self_ask_with_search_agent(model, tools, prompt)
 
 # Create an agent executor by passing in the agent and tools
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    verbose=True,
+    max_iterations=2,
+    max_depth=2,
+    handle_parsing_errors=True,
+)
 
 result = agent_executor.invoke(
     {"input": "What is the hometown of the reigning men's U.S. Open champion?"}
 )
+
+print(result)
+
+
+result = agent_executor.invoke({"input": "What happens in Hong Kong today ?"})
 
 print(result)
