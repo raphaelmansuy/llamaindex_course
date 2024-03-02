@@ -1,15 +1,16 @@
 "" "This script demonstrates how to create a chain to evaluate the urgency of a patient triage and evaluation at an emergency service in a hospital." ""
 import json
+
 # Import BaseModel from Pydantic
 
 from typing import List
 
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.llms import Ollama
-
-from langchain.output_parsers import PydanticOutputParser
 from langchain_core.pydantic_v1 import BaseModel, Field
+
+from langchain_community.llms import Ollama
+from langchain.output_parsers import PydanticOutputParser
 
 
 class UrgencyEvaluation(BaseModel):
@@ -25,17 +26,21 @@ class UrgencyEvaluation(BaseModel):
         symptoms (List[str]): List of symptoms reported by the patient.
         explanation (str): The explanation of the urgency level assigned during triage (e.g., critical, urgent, non-urgent).
     """
+
     patient_name: str = Field(description="The unique name of the patient.")
     triage_level: str = Field(
-        description="The urgency level assigned during triage (e.g., critical, urgent, non-urgent).")
+        description="The urgency level assigned during triage (e.g., critical, urgent, non-urgent)."
+    )
     evaluation_notes: str = Field(
-        description="Additional notes or observations from the evaluation.")
+        description="Additional notes or observations from the evaluation."
+    )
     vital_signs: dict = Field(
-        description="Vital signs data stored in a dictionary format. Example: {'heart_rate': 80, 'blood_pressure': '120/80'}.")
-    symptoms: List[str] = Field(
-        description="List of symptoms reported by the patient.")
+        description="Vital signs data stored in a dictionary format. Example: {'heart_rate': 80, 'blood_pressure': '120/80'}."
+    )
+    symptoms: List[str] = Field(description="List of symptoms reported by the patient.")
     explanation: str = Field(
-        "The explanation of the urgency level assigned during triage (e.g., critical, urgent, non-urgent).")
+        "The explanation of the urgency level assigned during triage (e.g., critical, urgent, non-urgent)."
+    )
 
 
 CLINICAL_TRIAGE_PROMPT = """
@@ -45,15 +50,14 @@ The results must formated as follow: {instructions}.
 
 
 # Create a prompt
-clinical_triage_prompt = ChatPromptTemplate.from_template(
-    CLINICAL_TRIAGE_PROMPT)
+clinical_triage_prompt = ChatPromptTemplate.from_template(CLINICAL_TRIAGE_PROMPT)
 # Create a model
 MODEL_NAME = "mistral:latest"
 
+# pylint: disable=E1102
 model = Ollama(model=MODEL_NAME)
 # Create an output parser
-urgency_evaluation_parser = PydanticOutputParser(
-    pydantic_object=UrgencyEvaluation)
+urgency_evaluation_parser = PydanticOutputParser(pydantic_object=UrgencyEvaluation)
 
 # Create a chain
 evaluation_chain = clinical_triage_prompt | model | urgency_evaluation_parser
@@ -63,10 +67,14 @@ VITAL_SIGNS = "heart_rate: 80, blood_pressure: 180/100"
 SYMPTOMS = "headache, fever, cough, difficulty breathing"
 
 
-evaluation = evaluation_chain.invoke({"patient_name": PATIENT_NAME,
-                                      "vital_signs": VITAL_SIGNS,
-                                      "symptoms": SYMPTOMS,
-                                      "instructions": urgency_evaluation_parser.get_format_instructions()})
+evaluation = evaluation_chain.invoke(
+    {
+        "patient_name": PATIENT_NAME,
+        "vital_signs": VITAL_SIGNS,
+        "symptoms": SYMPTOMS,
+        "instructions": urgency_evaluation_parser.get_format_instructions(),
+    }
+)
 
 # print the JSON beautifully
 
