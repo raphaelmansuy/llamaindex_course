@@ -1,7 +1,8 @@
 import os
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
+import datetime
+from langchain.agents import AgentType, initialize_agent, load_tools
 from langchain_openai import ChatOpenAI
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,10 +16,17 @@ print(f"Using model {MODEL_NAME} with API {MODEL_API}")
 
 model = ChatOpenAI(model_name=MODEL_NAME, api_key=MODEL_KEY, base_url=MODEL_API)
 
-prompt = ChatPromptTemplate.from_template(
-    "tell me a joke about {foo}, more than {word_count} words"
-)
-chain = prompt | model | StrOutputParser()
 
-for chunk in chain.stream({"foo": "bears", "word_count": 2000}):
-    print(chunk, end="", flush=True)
+tools = load_tools(["arxiv"])
+
+agent_chain = initialize_agent(
+    tools,
+    llm=model,
+    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True,
+)
+
+
+agent_chain.run(
+    "What articles has published about machine learning ?",
+)
