@@ -25,6 +25,8 @@ torchaudio = "^2.2.1"
 langgraph = "^0.0.26"
 langsmith = "^0.1.13"
 arxiv = "^2.1.0"
+duckduckgo-search = "^4.5.0"
+langchainhub = "^0.1.14"
 
 
 [tool.poetry.group.dev.dependencies]
