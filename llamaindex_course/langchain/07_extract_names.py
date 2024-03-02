@@ -10,6 +10,8 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
 from langchain.output_parsers import PydanticOutputParser
+from langchain.output_parsers import OutputFixingParser
+
 
 from dotenv import load_dotenv
 
@@ -116,8 +118,10 @@ extract_prompt = PromptTemplate(
     },
 )
 
+output_fixing_parser = OutputFixingParser.from_llm(parser=entities_parser, llm=model)
 
-chain_extract = extract_prompt | model | entities_parser
+
+chain_extract = extract_prompt | model | output_fixing_parser
 
 instructions = entities_parser.get_format_instructions()
 
