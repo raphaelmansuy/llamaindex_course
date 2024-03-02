@@ -33,11 +33,11 @@ logger = logging.getLogger(__name__)
 
 # nomic-embed-text is a powerful model that can be used for embeddings https://ollama.com/library/nomic-embed-text
 EMBEDDING_MODEL = "nomic-embed-text"
-LLM_MODEL = "mistral:latest"
+LLM_MODEL ="mistral:latest"
 
 # Define the service context
 service_context = ServiceContext.from_defaults(
-    llm=Ollama(model=LLM_MODEL, tokens=8096, request_timeout=120, temperature=0.1),
+    llm=Ollama(model=LLM_MODEL, tokens=8096, request_timeout=120, temperature=0.0),
     embed_model=OllamaEmbeddings(model=EMBEDDING_MODEL, show_progress=True),
 )
 
