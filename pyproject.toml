@@ -22,17 +22,21 @@ gradio = "^4.19.2"
 sounddevice = "^0.4.6"
 soundfile = "^0.12.1"
 torchaudio = "^2.2.1"
-langgraph = "^0.0.26"
 langsmith = "^0.1.13"
 arxiv = "^2.1.0"
 duckduckgo-search = "^4.5.0"
 langchainhub = "^0.1.14"
 langchain-experimental = "^0.0.53"
+streamlit = "^1.31.1"
+watchdog = "^4.0.0"
+langgraph = "^0.0.26"
+instructor = "^0.6.2"
 
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.3"
 pytest = "^8.0.1"
+streamlit = "^1.31.1"
 
 [build-system]
 requires = ["poetry-core"]
