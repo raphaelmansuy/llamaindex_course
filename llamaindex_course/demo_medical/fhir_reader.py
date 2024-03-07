@@ -15,6 +15,7 @@ FILE_TO_OPEN = "data_json/0d5f5a77-b49d-4f8b-887f-70e9de390751.json"
 FULL_PATH = os.path.join(os.getcwd(), FILE_TO_OPEN)
 
 
+
 def read_fhir_file(file_path: str) -> dict:
     """Read a JSON file and return the data as a dictionary
     Args:
