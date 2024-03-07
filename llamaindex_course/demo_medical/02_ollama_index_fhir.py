@@ -123,7 +123,6 @@ def main():
     """
     Main function
     """
-    console = Console()
     console.print("Ollama Index FHIR Example")
 
     index = get_vector_store_index()
