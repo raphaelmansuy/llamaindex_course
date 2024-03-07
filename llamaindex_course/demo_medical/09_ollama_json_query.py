@@ -46,7 +46,8 @@ PERSIST_DIR = os.environ.get("PERSIST_DIR")
 
 # You need to set this variable to True if you want to remove the existing storage
 # and recreate the index from the documents
-REMOVE_EXISTING_STORAGE = False
+REMOVE_EXISTING_STORAGE = True
+
 
 if REMOVE_EXISTING_STORAGE and os.path.exists(PERSIST_DIR):
     # remove the existing storage
@@ -55,6 +56,10 @@ if REMOVE_EXISTING_STORAGE and os.path.exists(PERSIST_DIR):
     logger.info("Removing existing storage at %s", PERSIST_DIR)
     shutil.rmtree(PERSIST_DIR)
     # load the documents and create the index
+    
+    if not os.path.exists(PERSIST_DIR):
+        os.makedirs(PERSIST_DIR)
+    
     documents = SimpleDirectoryReader("data_json").load_data(show_progress=True)
 
     index = VectorStoreIndex.from_documents(
@@ -65,6 +70,8 @@ if REMOVE_EXISTING_STORAGE and os.path.exists(PERSIST_DIR):
     index.storage_context.persist(persist_dir=PERSIST_DIR)
 else:
     # We can load the existing index from the storage
+    # create the directory if it does not exist
+
     storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
     index = load_index_from_storage(storage_context, service_context=service_context)
 
