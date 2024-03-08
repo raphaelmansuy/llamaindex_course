@@ -6,7 +6,7 @@ authors = ["Raphael MANSUY <raphael.mansuy.partner@decathlon.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.11,<=3.13"
 llama-index = "^0.10.9"
 python-dotenv = "^1.0.1"
 transformers = {extras = ["torch"], version = "^4.38.1"}
