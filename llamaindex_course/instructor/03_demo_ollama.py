@@ -5,6 +5,8 @@ from openai import OpenAI
 
 import instructor
 
+from rich import print
+
 
 class Character(BaseModel):
     """A character description"""

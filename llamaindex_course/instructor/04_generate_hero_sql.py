@@ -3,6 +3,8 @@ from openai import OpenAI
 from typing import Optional
 from sqlmodel import Field, SQLModel, create_engine, Session
 
+from rich import print
+
 
 # Define the model that will serve as a Table for the database
 class Hero(SQLModel, instructor.OpenAISchema, table=True):

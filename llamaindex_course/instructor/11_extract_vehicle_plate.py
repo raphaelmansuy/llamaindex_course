@@ -3,6 +3,8 @@ import instructor
 
 from pydantic import BaseModel
 
+from rich import print
+
 
 class Vehicle(BaseModel):
     """A vehicle description"""
@@ -41,13 +43,8 @@ def extract(url: str) -> Vehicle:
 
 # Example using a vehicle image
 output = extract(
-    "https://cdn-dnlfbl.nitrocdn.com/DhDXnMUNlvRaaAgawLsmRnDODzlslqaM/assets/images/optimized/rev-cceb3b6/numberplateclinic.co.uk/wp-content/uploads/Number-Plates-Illegal-1200x480.webp"
+    "https://images.unsplash.com/photo-1704312095035-e84e3edafeff?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 )
 print(output)
 
 
-another = extract(
-    url="https://www.duxfordautomotive.co.uk/assets/1026714/large/65198c25363a758c400f93010b1ae943_1026714.jpg"
-)
-
-print(another)

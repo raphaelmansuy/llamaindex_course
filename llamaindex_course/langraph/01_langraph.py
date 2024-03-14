@@ -15,6 +15,8 @@ from langgraph.prebuilt import ToolExecutor
 from langgraph.prebuilt import ToolInvocation
 from langgraph.graph import StateGraph, END
 
+from rich import print
+
 from dotenv import load_dotenv
 
 tools = [TavilySearchResults(max_results=1)]
@@ -38,7 +40,7 @@ model = ChatOpenAI(
     api_key=MODEL_KEY,
     base_url=MODEL_API,
     temperature=0,
-    max_tokens=8096,
+    max_tokens=1024,
     streaming=True,
 )
 

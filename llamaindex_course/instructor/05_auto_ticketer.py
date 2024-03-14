@@ -5,11 +5,10 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from enum import Enum
 
+from rich import print
+
 
 client = instructor.patch(OpenAI())
-
-
-
 
 
 class PriorityEnum(str, Enum):

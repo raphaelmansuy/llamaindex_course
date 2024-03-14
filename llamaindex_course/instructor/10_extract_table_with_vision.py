@@ -11,6 +11,8 @@ from pydantic import (
 import instructor
 import pandas as pd
 
+from rich import print
+
 
 client = OpenAI()
 client = instructor.patch(client, mode=instructor.function_calls.Mode.MD_JSON)

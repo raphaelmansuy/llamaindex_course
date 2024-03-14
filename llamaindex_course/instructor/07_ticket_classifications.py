@@ -5,6 +5,8 @@ from typing import List
 from openai import OpenAI
 from pydantic import BaseModel
 
+from rich import print
+
 client = instructor.patch(OpenAI())
 
 

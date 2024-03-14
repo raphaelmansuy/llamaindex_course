@@ -37,12 +37,15 @@ tabulate = "^0.9.0"
 pillow = "^10.2.0"
 webp = "^0.3.0"
 easyocr = "^1.7.1"
+langchain-fireworks = "^0.1.1"
+wikipedia = "^1.4.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pylint = "^3.0.3"
 pytest = "^8.0.1"
 streamlit = "^1.31.1"
+ipykernel = "^6.29.3"
 
 [build-system]
 requires = ["poetry-core"]
